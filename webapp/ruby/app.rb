@@ -130,7 +130,7 @@ SQL
     products_query = <<SQL
 SELECT p.id, p.name, p.description, p.image_path, p.price, h.created_at
 FROM histories as h
-LEFT OUTER JOIN products as p
+LEFT JOIN products as p
 ON h.product_id = p.id
 WHERE h.user_id = ?
 ORDER BY h.id DESC
