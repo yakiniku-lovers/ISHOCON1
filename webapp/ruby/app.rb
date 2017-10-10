@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'mysql2'
 require 'mysql2-cs-bind'
 require 'erubis'
+require 'pry'
 
 module Ishocon1
   class AuthenticationError < StandardError; end
@@ -121,7 +122,7 @@ WHERE c.product_id = ?
 ORDER BY c.created_at DESC
 LIMIT 5
 SQL
-    cmt_count_query = 'SELECT count(*) as count FROM comments WHERE product_id = ?'
+    cmt_count_query = 'SELECT count(id) as count FROM comments WHERE product_id = ?'
 
     erb :index, locals: { products: products, cmt_query: cmt_query, cmt_count_query: cmt_count_query }
   end
