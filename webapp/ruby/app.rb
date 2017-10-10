@@ -127,7 +127,7 @@ SQL
 
   get '/users/:user_id' do
     products_query = <<SQL
-SELECT product_id, name, description, image_path, price, created_at
+SELECT product_id as id, name, description, image_path, price, created_at
 FROM histories
 WHERE user_id = ?
 ORDER BY id DESC
