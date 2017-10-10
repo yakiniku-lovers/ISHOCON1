@@ -142,7 +142,7 @@ SQL
       total_pay += product[:price]
     end
 
-    user = db.xquery('SELECT * FROM users WHERE id = ?', params[:user_id]).first
+    user = db.xquery('SELECT id, name FROM users WHERE id = ?', params[:user_id]).first
     erb :mypage, locals: { products: products, user: user, total_pay: total_pay }
   end
 
