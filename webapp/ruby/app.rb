@@ -43,10 +43,6 @@ class Ishocon1::WebApp < Sinatra::Base
       client
     end
 
-    def time_now_db
-      Time.now.utc
-    end
-
     def authenticate(email, password)
       user = db.xquery('SELECT * FROM users WHERE email = ?', email).first
       fail Ishocon1::AuthenticationError unless user[:password] == password
@@ -62,12 +58,12 @@ class Ishocon1::WebApp < Sinatra::Base
     end
 
     def update_last_login(user_id)
-      db.xquery('UPDATE users SET last_login = ? WHERE id = ?', time_now_db, user_id)
+      db.xquery('UPDATE users SET last_login = NOW() WHERE id = ?', user_id)
     end
 
     def buy_product(product_id, user_id)
-      db.xquery('INSERT INTO histories (product_id, user_id, created_at) VALUES (?, ?, ?)', \
-        product_id, user_id, time_now_db)
+      db.xquery('INSERT INTO histories (product_id, user_id, created_at) VALUES (?, ?, NOW())', \
+        product_id, user_id)
     end
 
     def already_bought?(product_id)
@@ -78,8 +74,8 @@ class Ishocon1::WebApp < Sinatra::Base
     end
 
     def create_comment(product_id, user_id, content)
-      db.xquery('INSERT INTO comments (product_id, user_id, content, created_at) VALUES (?, ?, ?, ?)', \
-        product_id, user_id, content, time_now_db)
+      db.xquery('INSERT INTO comments (product_id, user_id, content, created_at) VALUES (?, ?, ?, NOW())', \
+        product_id, user_id, content)
     end
   end
 
