@@ -58,11 +58,11 @@ class Ishocon1::WebApp < Sinatra::Base
     end
 
     def update_last_login(user_id)
-      db.xquery('UPDATE users SET last_login = NOW() WHERE id = ?', user_id)
+      db.xquery('UPDATE users SET last_login = UTC_TIMESTAMP() WHERE id = ?', user_id)
     end
 
     def buy_product(product_id, user_id)
-      db.xquery('INSERT INTO histories (product_id, user_id, created_at) VALUES (?, ?, NOW())', \
+      db.xquery('INSERT INTO histories (product_id, user_id, created_at) VALUES (?, ?, UTC_TIMESTAMP())', \
         product_id, user_id)
     end
 
@@ -74,7 +74,7 @@ class Ishocon1::WebApp < Sinatra::Base
     end
 
     def create_comment(product_id, user_id, content)
-      db.xquery('INSERT INTO comments (product_id, user_id, content, created_at) VALUES (?, ?, ?, NOW())', \
+      db.xquery('INSERT INTO comments (product_id, user_id, content, created_at) VALUES (?, ?, ?, UTC_TIMESTAMP())', \
         product_id, user_id, content)
     end
   end
