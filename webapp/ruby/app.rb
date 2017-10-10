@@ -44,7 +44,7 @@ class Ishocon1::WebApp < Sinatra::Base
     end
 
     def time_now_db
-      Time.now - 9 * 60 * 60
+      Time.now.utc
     end
 
     def authenticate(email, password)
